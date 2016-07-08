@@ -1,0 +1,11 @@
+div.players .add-player {
+  padding-left: 15px;
+  padding-right: 15px; }
+
+div.players div.search-player-button {
+  padding-top: 5px; }
+
+div.players .player-list > md-card {
+  width: 100%; }
+  div.players .player-list > md-card .player-wl {
+    color: lightslategrey; }
