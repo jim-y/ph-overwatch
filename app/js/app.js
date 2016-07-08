@@ -1,7 +1,8 @@
 'use strict';
 
 const module = angular.module('phOverwatch', [
-    'ui.router'
+    'ui.router',
+    'ngMaterial'
 ]);
 
 // ##############################
