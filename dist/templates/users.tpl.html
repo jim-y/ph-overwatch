@@ -1,5 +1,13 @@
-<ul>
-    <li>1</li>
-    <li>2</li>
-    <li>3</li>
-</ul>
+<div class="users">
+    <div class="add-user">
+        <input type="text" ng-model="ctrl.user" placeholder="Battletag (ú.m Pez#21238)" />
+        <button ng-click="ctrl.user != null && ctrl.user !== '' && ctrl.searchUser(ctrl.user)">Keresés</button>
+    </div>
+    <div class="user-list" ng-if="ctrl.users.length">
+        <ul>
+            <li ng-repeat="user in ctrl.users">
+                {{ user.battletag }}
+            </li>
+        </ul>
+    </div>
+</div>
