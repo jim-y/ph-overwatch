@@ -1,0 +1,18 @@
+<div class="players" layout="column" ng-cloak>
+
+  <!-- SEARCH PLAYER -->
+  <md-toolbar md-scroll-shrink class="md-tall" layout="row" layout-align="center center">
+    <header class="search-player md-toolbar-tools md-flex"
+        ng-controller="SearchController as searchCtrl"
+        ng-include="'templates/search-player.tpl.html'"
+        layout="column" layout-align="center center"></header>
+  </md-toolbar>
+
+  <!-- PLAYER LIST -->
+  <md-content class="player-list">
+    <div layout="row" ng-if="ctrl.playerService.players.length">
+      <player ng-repeat="player in ctrl.playerService.players" model="player" flex></player>
+    </div>
+  </md-content>
+
+</div>

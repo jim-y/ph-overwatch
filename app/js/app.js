@@ -1,8 +1,10 @@
 'use strict';
 
+import register from './lib/register';
+
 const module = angular.module('phOverwatch', [
-    'ui.router',
-    'ngMaterial'
+  'ui.router',
+  'ngMaterial'
 ]);
 
 // ##############################
@@ -10,39 +12,48 @@ const module = angular.module('phOverwatch', [
 // ##############################
 
 import AppController from './controllers/app-controller';
-import UserController from './controllers/user-controller';
+import PlayerController from './controllers/player-controller';
+import SearchController from './controllers/search-controller';
+import ConfirmPlayerController from './controllers/confirm-player-controller';
 
 module.controller('AppController', AppController);
-module.controller('UserController', UserController);
+module.controller('PlayerController', PlayerController);
+module.controller('SearchController', SearchController);
+module.controller('ConfirmPlayerController', ConfirmPlayerController);
 
 // ##############################
 //           services
 // ##############################
 
-import UserService from './services/user-service';
+import UserService from './services/player-service';
 
-module.service('UserService', UserService);
+module.service('PlayerService', UserService);
+
+// ##############################
+//           directives
+// ##############################
+
+import PlayerDirective from './directives/player';
+
+register('phOverwatch')
+  .directive('player', PlayerDirective);
 
 // ##############################
 //         configuration
 // ##############################
 
-module.config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $urlRouterProvider) {
-
-    $urlRouterProvider.when("", "/home/users");
-    $urlRouterProvider.when("/", "/home/users");
-    $urlRouterProvider.otherwise("/home/users");
-
-    $stateProvider.state('home', {
-        abstract: true,
-        url: '/home',
-        templateUrl: 'views/home.html'
+module.config(['$stateProvider', '$urlRouterProvider',
+  function config($stateProvider, $urlRouterProvider) {
+    $urlRouterProvider.when('/', '/players');
+    $urlRouterProvider.otherwise('/players');
+    $stateProvider.state('players', {
+      url: '/players',
+      templateUrl: 'views/players.html',
+      controller: 'PlayerController as ctrl'
     });
+  }
+]);
 
-    $stateProvider.state('home.users', {
-        url: '/users',
-        templateUrl: 'templates/users.tpl.html',
-        controller: 'UserController as ctrl'
-    });
-
-}]);
+module.run($rootScope => {
+  $rootScope.$on('$stateChangeError', console.log.bind(console));
+});

@@ -9,10 +9,12 @@
     "dist": "mkdir -p dist/js/vendor dist/templates dist/views dist/css",
     "create-vendor": "concat-cli -f node_modules/angular/angular.min.js node_modules/angular-ui-router/release/angular-ui-router.min.js -o dist/js/vendor/vendor.js",
     "copy-static": "cp app/index.html dist/index.html && cp -R app/static/templates/* dist/templates && cp -R app/static/views/* dist/views",
+    "copy-images": "cp -R app/img dist/img",
     "build:scss": "node-sass app/css/main.scss dist/css/main.css",
-    "build:js": "browserify -d -e app/js/app.js -t [ babelify --presets [ es2015 ] --comments false ] -o dist/js/app.js",
-    "build": "npm run clean-dist && npm run dist && npm run build:js && npm run build:scss && npm run copy-static && npm run create-vendor",
-    "serve": "pushd ./dist; python -m SimpleHTTPServer 8000; popd && firebase serve"
+    "build:js": "watchify -v -d -e app/js/app.js -t [ babelify --presets [ es2015 ] --comments false ] -o dist/js/app.js",
+    "build": "npm run clean-dist && npm run dist && npm run build:scss && npm run copy-static && npm run create-vendor && npm run build:js",
+    "serve": "pushd ./dist; python -m SimpleHTTPServer 8000; popd && firebase serve",
+    "watch": "npm-watch"
   },
   "repository": {
     "type": "git",
@@ -38,10 +40,27 @@
     "babelify": "^7.3.0",
     "browserify": "^13.0.1",
     "concat-cli": "^4.0.0",
-    "node-sass": "^3.8.0"
+    "eslint": "^3.2.0",
+    "eslint-config-airbnb": "^9.0.1",
+    "eslint-config-airbnb-base": "^5.0.1",
+    "eslint-plugin-import": "^1.12.0",
+    "eslint-plugin-react": "^5.2.2",
+    "node-sass": "^3.8.0",
+    "npm-watch": "^0.1.5",
+    "watchify": "^3.7.0"
   },
   "dependencies": {
     "angular": "^1.5.7",
     "angular-ui-router": "^0.3.1"
+  },
+  "watch": {
+    "copy-static": {
+      "patterns": ["app"],
+      "extensions": "html"
+    },
+    "build:scss": {
+      "patterns": ["app/css"],
+      "extensions": "scss"
+    }
   }
 }

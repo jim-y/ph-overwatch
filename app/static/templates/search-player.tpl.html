@@ -1,0 +1,17 @@
+<md-input-container class="md-block player-battletag" flex-gt-sm>
+  <form name="searchCtrl.form">
+    <label>Battletag</label>
+    <input ng-model="searchCtrl.player"
+          ng-model-options="{ debounce: 200 }"
+          name="battletag"
+          type="text"
+          ng-pattern="'([a-zA-Z0-9]+)(#{1})([0-9]+)'"
+          ng-keyup="searchCtrl.searchPlayer(searchCtrl.player, $event)"
+          required />
+    <md-progress-circular md-mode="indeterminate" ng-disabled="!searchCtrl.searching" class="md-hue-2" md-diameter="20px"></md-progress-circular>
+    <div ng-messages="searchCtrl.form.battletag.$error" class="validation">
+      <div ng-message="required">Megadása erősen ajánlott:)</div>
+      <div ng-message="pattern">Nem megfelelő battletag formátum!</div>
+    </div>
+  </form>
+</md-input-container>

@@ -1,0 +1,35 @@
+<md-card class="player-info" md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+  <md-card-title>
+    <md-card-title-text>
+      <span class="md-headline">{{ctrl.player.username}}</span>
+      <span class="md-subhead">W/L: <span class="player-wl">{{ ((ctrl.player.games.quick.wins / ctrl.player.games.quick.played) * 100).toFixed(1) }}%</span></span>
+    </md-card-title-text>
+    <md-card-title-media>
+      <div class="md-media-sm card-media">
+        <img ng-src="{{ctrl.player.avatar}}" alt="avatar">
+      </div>
+    </md-card-title-media>
+  </md-card-title>
+  <md-card-content>
+    <md-list class="md-dense" flex>
+      <md-subheader class="md-no-sticky">Statisztikák</md-subheader>
+      <md-list-item class="md-2-line">
+        <div class="md-list-item-text">
+          <h3>Szint</h3>
+          <p>{{ ctrl.player.level }}</p>
+        </div>
+      </md-list-item>
+      <md-divider></md-divider>
+      <md-list-item class="md-2-line">
+        <div class="md-list-item-text">
+          <h3>Játékidő</h3>
+          <p>QM: {{ ctrl.player.playtime.quick }}</p>
+        </div>
+      </md-list-item>
+      <md-divider ></md-divider>
+    </md-list>
+  </md-card-content>
+  <md-card-actions layout="row" layout-align="end center">
+    <md-button ng-href="{{ctrl.getPlayerProfileUrl(ctrl.player)}}" target="_blank">Profil oldal</md-button>
+  </md-card-actions>
+</md-card>
